@@ -30,3 +30,36 @@ output:
 ```
 sb demo sb demo sb demo sb demo sb demo 
 ```
+
+
+### 3. Чем отличаются RWMutex от Mutex?
+Mutex означает mutual exclusion(взаимное исключение) и является способом защиты critical section(критическая секция) программы.
+В качестве примера приведу функцию из [**18 задания**](https://github.com/faringet/WB_L1/blob/master/develop/dev18/task18.go):
+```go
+// Increment Инкриминируем значение счетчика
+func (c *Counter) Increment() {
+	c.mu.Lock()
+	c.count++
+	c.mu.Unlock()
+}
+```
+
+RWMutex концептуально то же самое, что и Mutex: он защищает доступ к памяти. Тем не менее, RWMutex дает немного больше контроля над памятью. Мы можем запросить блокировку для чтения, и в этом случае будет предоставлен доступ, если блокировка не удерживается для записи.
+
+Как пример:
+```go
+func (c *counter) CountV1() int {
+   c.Lock()
+   defer c.Unlock()
+   return c.count
+}
+func (c *counter) CountV2() int {
+   c.RLock()
+   defer c.RUnlock()
+   return c.count
+}
+```
+CountV2 не блокирует count если не было блокировок на запись.
+
+
+
