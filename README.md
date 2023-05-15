@@ -103,5 +103,9 @@ ch = {chan int}
  
  [**Часть 2**](https://medium.com/@victor_nerd/golang-channel-internal-part2-b4e37ad9a118)
  
+ 
+ ### 5. Какой размер у структуры struct{}{}?
+ Пустая структура struct{}{} не занимает память. Она не имеет полей, и поэтому ее размер равен нулю - 0 байт.
+ 
 
 
